@@ -1,4 +1,8 @@
 /**/FACTORY FUNCTIONS AND THE MODULE PATTERN in JS/**/
+/*
+Factories are simply plain old JavaScript functions that return objects for us to use in our code. 
+Using factories is a powerful way to organize and contain the code you’re writing.
+*/
 
 const personFactory = (name, age) => {
   const sayHello = () => console.log('hello!');
@@ -60,3 +64,35 @@ counter(); // 0
 counter(); // 1
 counter(); // 2
 counter(); // 3
+
+/**/
+const Player = (name, level) => {
+  let health = level * 2;
+  const getLevel = () => level;
+  const getName  = () => name;
+  const die = () => {
+    // uh oh
+  };
+  const damage = x => {
+    health -= x;
+    if (health <= 0) {
+      die();
+    }
+  };
+  const attack = enemy => {
+    if (level < enemy.getLevel()) {
+      damage(1);
+      console.log(`${enemy.getName()} has damaged ${name}`);
+    }
+    if (level >= enemy.getLevel()) {
+      enemy.damage(1);
+      console.log(`${name} has damaged ${enemy.getName()}`);
+    }
+  };
+  return {attack, damage, getLevel, getName}
+};
+
+const jimmie = Player('jim', 10);
+const badGuy = Player('jeff', 5);
+jimmie.attack(badGuy);
+
