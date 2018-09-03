@@ -96,3 +96,22 @@ const jimmie = Player('jim', 10);
 const badGuy = Player('jeff', 5);
 jimmie.attack(badGuy);
 
+/*Inheritance with Factories*/
+const Person = (name) => {
+  const sayName = () => console.log(`my name is ${name}`)
+  return {sayName}
+}
+
+const Nerd = (name) => {
+  // simply create a person and pull out the sayName function!
+  const {sayName} = Person(name)
+  const doSomethingNerdy = () => console.log('nerd stuff')
+  return {sayName, doSomethingNerdy}
+}
+
+const jeff = Nerd('jeff')
+
+jeff.sayName() //my name is jeff
+jeff.doSomethingNerdy() // nerd stuff
+
+
